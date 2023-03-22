@@ -15,9 +15,9 @@ public class Film extends Show{
         super(name,releaseYear,description);
         this.duration=duration;
     }
-    public Film(String name, int releaseYear, String description, List<Category> categories, List<Review> reviews,
+    public Film(int id, String name, int releaseYear, String description, List<Category> categories, List<Review> reviews,
                 List<Actor> actors, int duration) {
-        super(name, releaseYear, description, categories, reviews, actors);
+        super(id, name, releaseYear, description, categories, reviews, actors);
         this.duration = duration;
     }
     @Override
@@ -26,5 +26,13 @@ public class Film extends Show{
         System.out.println("Duration: ");
         String dur= in.nextLine();
         this.duration=Integer.parseInt(dur);
+    }
+
+    @Override
+    public String toString() {
+        return "Film{" +
+                super.toString() +
+                "duration=" + duration +
+                '}';
     }
 }

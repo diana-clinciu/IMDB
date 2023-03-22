@@ -2,6 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 
 abstract public class Show {
+    protected int id;
     protected String name;
     protected int releaseYear;
     protected String description;
@@ -22,8 +23,9 @@ abstract public class Show {
         this.description = description;
     }
 
-    public Show(String name, int releaseYear, String description, List<Category> categories, List<Review> reviews,
+    public Show(int id, String name, int releaseYear, String description, List<Category> categories, List<Review> reviews,
                 List<Actor> actors) {
+        this.id = id;
         this.name = name;
         this.releaseYear = releaseYear;
         this.description = description;
@@ -37,6 +39,8 @@ abstract public class Show {
     }
 
     public void read(Scanner in)  {
+        System.out.println("Id ");
+        this.id = Integer.parseInt(in.nextLine());
         System.out.println("Name: ");
         this.name = in.nextLine();
         System.out.println("Release year: ");
@@ -44,5 +48,18 @@ abstract public class Show {
         this.releaseYear= Integer.parseInt(rYear);
         System.out.println("Description: ");
         this.description = in.nextLine();
+    }
+
+    @Override
+    public String toString() {
+        return "Show{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", releaseYear=" + releaseYear +
+                ", description='" + description + '\'' +
+                ", categories=" + categories +
+                ", reviews=" + reviews +
+                ", actors=" + actors +
+                '}';
     }
 }

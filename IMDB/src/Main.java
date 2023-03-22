@@ -1,41 +1,72 @@
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-        static List<String> availableOptions = Arrays.asList("Create a new user","Add a new film to the website",
-                "Add a new series to the website","Delete a film from the website",
-                "Delete a series from the website","Show movies","Show series","Leave IMDB");
-        private static void printAllOptions() {
-        for(int i=0;i<availableOptions.size();++i)
-            System.out.println((i+1) + ". " + availableOptions.get(i) );
-        }
-        public static void main(String[] args) {
 
-            MainService mainService = new MainService();
-            Scanner in = new Scanner(System.in);
-            boolean end= false;
-            while (!end) {
-                System.out.println("---- Welcome to IMDB ----");
-                System.out.println("The following options are available:");
-                Main.printAllOptions();
-                System.out.println("Input the number of your option:");
-                String command = in.nextLine();
-                try{
-                    switch (command) {
-                        case "1" -> System.out.println("User added");
-                        case "2" -> mainService.createFilm(in);
-                        case "3" -> mainService.createSeries(in);
-                        case "4" -> mainService.deleteFilm(in);
-                        case "5" -> mainService.deleteSeries(in);
-                        case "6" -> mainService.showFilms();
-                        case "7" -> mainService.showSeries();
-                        case "8" -> end=true;
-                    }
-                }catch (Exception e){
-                    System.out.println(e.toString());
+    private static void printMenu() {
+        System.out.println("+---------------------------------------------+");
+        System.out.println("|                     IMDB                    |");
+        System.out.println("+---------------------------------------------+");
+        System.out.println("|   a. Create a new user                      |");
+        System.out.println("|   b. Create an actor *                      |");
+        System.out.println("|   c. Add a new film to the website          |");
+        System.out.println("|   d. Add a new series to the website        |");
+        System.out.println("|   e. Delete a film from the website         |");
+        System.out.println("|   f. Delete a series from the website       |");
+        System.out.println("|   g. Add show to watchlist   *              |");
+        System.out.println("|   h. Show movies                            |");
+        System.out.println("|   i. Show series                            |");
+        System.out.println("|   q. Quit                                   |");
+        System.out.println("+---------------------------------------------+");
+        System.out.println("Introduce the command letter:");
+    }
+
+    public static void main(String[] args) {
+        MainService mainService = new MainService();
+        Scanner in = new Scanner(System.in);
+        boolean quit = false;
+        while (!quit) {
+            Main.printMenu();
+            String cmd = in.nextLine();
+            try {
+                switch (cmd) {
+                    case "a":
+                        mainService.createUser(in);
+                        break;
+                    case "b":
+                        mainService.createActor(in);
+                        break;
+                    case "c":
+                        mainService.createFilm(in);
+                        break;
+                    case "d":
+                        mainService.createSeries(in);
+                        break;
+                    case "e":
+                        mainService.deleteFilm(in);
+                        break;
+                    case "f":
+                        mainService.deleteSeries(in);
+                        break;
+                    case "g":
+                        mainService.addShowToWatchList(in);
+                        break;
+                    case "h":
+                        mainService.showFilms();
+                        break;
+                    case "i":
+                        mainService.showSeries();
+                        break;
+                    case "q":
+                        quit = true;
+                        break;
+                    default:
+                        System.out.println("Wrong command!");
                 }
+            } catch (Exception e) {
+                System.out.println(e.toString());
             }
         }
+    }
+
 
 }

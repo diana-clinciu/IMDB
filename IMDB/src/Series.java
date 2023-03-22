@@ -16,9 +16,9 @@ public class Series extends Show{
         this.episodeDuration = episodeDuration;
     }
 
-    public Series(String name, int releaseYear, String description, List<Category> categories, List<Review> reviews,
+    public Series(int id, String name, int releaseYear, String description, List<Category> categories, List<Review> reviews,
                   List<Actor> actors, int episodesNr, int episodeDuration) {
-        super(name, releaseYear, description, categories, reviews, actors);
+        super(id, name, releaseYear, description, categories, reviews, actors);
         this.episodesNr = episodesNr;
         this.episodeDuration = episodeDuration;
     }
@@ -31,5 +31,14 @@ public class Series extends Show{
         System.out.println("Duration: ");
         String dur= in.nextLine();
         this.episodeDuration=Integer.parseInt(dur);
+    }
+
+    @Override
+    public String toString() {
+        return "Series{" +
+                super.toString() +
+                "episodesNr=" + episodesNr +
+                ", episodeDuration=" + episodeDuration +
+                '}';
     }
 }
