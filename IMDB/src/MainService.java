@@ -159,20 +159,25 @@ public class MainService {
            System.out.println("- - - - - - - - - - - - - - - ");
         }
     }
+
+    // am modificat si sper ca si nu stricat :)))
     public void calculateShowRating(Scanner in){
         System.out.println("Give the show id: ");
         int id = Integer.parseInt(in.nextLine());
         try {
             Show show = this.findById(id, shows);
-            double rating = 0;
-            int reviewNumber = show.reviews.size();
-            for(Review r: show.reviews){
-                rating = rating + r.getGrade();
-            }
-            rating = rating / reviewNumber;
-            System.out.println("The show " + show.getShowName() + " has a rating of " + rating);
+            System.out.println("The show " + show.getShowName() + " has a rating of " + show.getAveragaRating());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
+
+    public void sortShows(){
+        shows.sort(new SortByRating().reversed());
+        int i = 0;
+        for(Show s: shows){
+            System.out.println((++i)+". "+ s.getName()+" rating: "+s.getAveragaRating());
+        }
+    }
+
 }

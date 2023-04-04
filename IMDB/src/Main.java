@@ -18,6 +18,7 @@ public class Main {
         System.out.println("|   k. Add category to show      *            |");
         System.out.println("|   l. Get show rating                        |");
         System.out.println("|   m. Discover most awarded actors           |");
+        System.out.println("|   n. Sort shows by rating        *          |");
         System.out.println("|   q. Quit                                   |");
         System.out.println("+---------------------------------------------+");
         System.out.println("Introduce the command letter:");
@@ -75,6 +76,9 @@ public class Main {
                         break;
                     case "m":
                         mainService.mostAwardedActors(in);
+                        break;
+                    case "n":
+                        mainService.sortShows();
                         break;
                     case "q":
                         quit = true;

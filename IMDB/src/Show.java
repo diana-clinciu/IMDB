@@ -101,4 +101,17 @@ abstract public class Show extends Entity {
         this.actors.add(actor); // agregare
     }
 
+    public double getAveragaRating(){
+        double rating = 0;
+        int reviewNumber = this.reviews.size();
+        for(Review r: this.reviews){
+            rating = rating + r.getGrade();
+        }
+        rating = rating / reviewNumber;
+        return rating;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
