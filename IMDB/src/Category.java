@@ -12,7 +12,7 @@ public class Category extends Entity{
     }
 
     public void print(){
-        System.out.println("Category id: "+this.id);
+        System.out.println("~ Category id: "+this.id);
         System.out.println("Name: "+this.name);
     }
     @Override

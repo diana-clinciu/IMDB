@@ -1,5 +1,4 @@
-
-import java.text.ParseException;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,7 +22,6 @@ public class MainService {
     }
 
     public void createFilm(Scanner in){
-
         Film newFilm = new Film();
         newFilm.read(in);
         this.shows.add(newFilm);
@@ -55,7 +53,7 @@ public class MainService {
         System.out.println("Category added");
     }
     public void deleteShow(Scanner in) {
-        System.out.println("Enter the name of the movie you want to delete:");
+        System.out.println("Enter the name of the show you want to delete:");
         String nameToDelete = in.nextLine();
         boolean found = false;
         for (Iterator<Show> iterator = shows.iterator(); iterator.hasNext(); ) {
@@ -66,9 +64,9 @@ public class MainService {
             }
         }
         if (found) {
-            System.out.println("The film was successfully deleted.");
+            System.out.println("The show was successfully deleted.");
         } else {
-            System.out.println("The film was not found in the list.");
+            System.out.println("The show was not found in the list.");
         }
     }
 
@@ -129,7 +127,7 @@ public class MainService {
             Review review = new Review();
             review.read(in);
             show.addReview(review);
-            System.out.println("Review added successfully to show " + show.name);
+            System.out.println("Review added successfully to show " + show.getShowName());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -144,6 +142,35 @@ public class MainService {
             Actor actor = this.findById(actorId, actors);
             show.addActor(actor);
             System.out.println(show);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void mostAwardedActors(Scanner in){
+        System.out.println("Give the number actors for the top: ");
+        int topNumber = Integer.parseInt(in.nextLine());
+        actors.sort(Comparator.comparingInt(actor -> actor.getAwards().size()));
+        System.out.println("The most awarded" + topNumber + " actors are:");
+        if(topNumber > actors.size())
+            topNumber = actors.size();
+        for (int i = actors.size() - 1; i >= actors.size() - topNumber; i--) {
+           Actor a = actors.get(i);
+           a.print();
+           System.out.println("- - - - - - - - - - - - - - - ");
+        }
+    }
+    public void calculateShowRating(Scanner in){
+        System.out.println("Give the show id: ");
+        int id = Integer.parseInt(in.nextLine());
+        try {
+            Show show = this.findById(id, shows);
+            double rating = 0;
+            int reviewNumber = show.reviews.size();
+            for(Review r: show.reviews){
+                rating = rating + r.getGrade();
+            }
+            rating = rating / reviewNumber;
+            System.out.println("The show " + show.getShowName() + " has a rating of " + rating);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

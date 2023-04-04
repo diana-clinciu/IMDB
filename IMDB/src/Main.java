@@ -14,8 +14,10 @@ public class Main {
         System.out.println("|   g. Delete a show                          |");
         System.out.println("|   h. Add show to watchlist   *              |");
         System.out.println("|   i. Add review to show      *              |");
-        System.out.println("|   j. Add actor  to show      *              |");
+        System.out.println("|   j. Add actor to show      *               |");
         System.out.println("|   k. Add category to show      *            |");
+        System.out.println("|   l. Get show rating                        |");
+        System.out.println("|   m. Discover most awarded actors           |");
         System.out.println("|   q. Quit                                   |");
         System.out.println("+---------------------------------------------+");
         System.out.println("Introduce the command letter:");
@@ -67,6 +69,12 @@ public class Main {
                         break;
                     case "k":
                         mainService.addCategoryToShow(in);
+                        break;
+                    case "l":
+                        mainService.calculateShowRating(in);
+                        break;
+                    case "m":
+                        mainService.mostAwardedActors(in);
                         break;
                     case "q":
                         quit = true;

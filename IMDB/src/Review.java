@@ -26,11 +26,16 @@ public class Review extends Entity {
         this.description = scanner.nextLine();
     }
     public void print() {
-        System.out.println("Reward id: "+this.id);
+        System.out.println("~ Review id: "+this.id);
         System.out.println("User id: "+ this.userId);
         System.out.println("Grade: "+this.grade);
         System.out.println("Description: "+this.description);
     }
+
+    public int getGrade() {
+        return grade;
+    }
+
     @Override
     public String toString() {
         return "Review{" +

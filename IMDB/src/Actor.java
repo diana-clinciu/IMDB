@@ -6,7 +6,7 @@ public class Actor extends Entity{
     private String lastName;
     private String firstName;
     private int age;
-    private List<String> awards; // am uitat sa citesc premiile
+    private List<String> awards;
 
     public Actor() {
         this.awards = new ArrayList<>();
@@ -40,8 +40,12 @@ public class Actor extends Entity{
                 '}';
     }
 
+    public List<String> getAwards() {
+        return awards;
+    }
+
     public void print(){
-        System.out.println("Actor id: "+this.id);
+        System.out.println("~Actor id: "+this.id);
         System.out.println("Name: "+this.lastName+' '+this.firstName);
         System.out.println("Age: "+this.age);
         System.out.println("Awards: ");

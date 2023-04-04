@@ -1,6 +1,4 @@
-import java.util.List;
 import java.util.Scanner;
-
 public class Series extends Show {
     private int episodesNr;
     private int episodeDuration; //in minutes
@@ -10,8 +8,8 @@ public class Series extends Show {
 
     public void print(){
         super.print();
-        System.out.println("Number of episodes: "+this.episodesNr);
-        System.out.println("Episode duration: "+this.episodeDuration);
+        System.out.println("Number of episodes: " + this.episodesNr);
+        System.out.println("Episode duration: " + this.episodeDuration);
     }
     @Override
     public void read(Scanner in) {
