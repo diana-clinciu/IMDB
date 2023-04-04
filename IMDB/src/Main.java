@@ -1,26 +1,32 @@
 import java.util.Scanner;
 
 public class Main {
-
     private static void printMenu() {
         System.out.println("+---------------------------------------------+");
         System.out.println("|                     IMDB                    |");
         System.out.println("+---------------------------------------------+");
         System.out.println("|   a. Create a new user                      |");
         System.out.println("|   b. Create an actor *                      |");
-        System.out.println("|   c. Add a new film to the website          |");
-        System.out.println("|   d. Add a new series to the website        |");
-        System.out.println("|   e. Delete a film from the website         |");
-        System.out.println("|   f. Delete a series from the website       |");
-        System.out.println("|   g. Add show to watchlist   *              |");
-        System.out.println("|   h. Show movies                            |");
-        System.out.println("|   i. Show series                            |");
+        System.out.println("|   c. Create a category *                    |");
+        System.out.println("|   d. Create a film                          |");
+        System.out.println("|   e. Create a series                        |");
+        System.out.println("|   f. Show shows :) _                        |");
+        System.out.println("|   g. Delete a show                          |");
+        System.out.println("|   h. Add show to watchlist   *              |");
+        System.out.println("|   i. Add review to show      *              |");
+        System.out.println("|   j. Add actor  to show      *              |");
+        System.out.println("|   k. Add category to show      *            |");
         System.out.println("|   q. Quit                                   |");
         System.out.println("+---------------------------------------------+");
         System.out.println("Introduce the command letter:");
     }
 
     public static void main(String[] args) {
+
+        Object obj = new User();
+        Class a = obj.getClass();
+        System.out.println(a);
+
         MainService mainService = new MainService();
         Scanner in = new Scanner(System.in);
         boolean quit = false;
@@ -36,25 +42,31 @@ public class Main {
                         mainService.createActor(in);
                         break;
                     case "c":
-                        mainService.createFilm(in);
+                        mainService.createCategory(in);
                         break;
                     case "d":
-                        mainService.createSeries(in);
+                        mainService.createFilm(in);
                         break;
                     case "e":
-                        mainService.deleteFilm(in);
+                        mainService.createSeries(in);
                         break;
                     case "f":
-                        mainService.deleteSeries(in);
+                        mainService.printAllShows();
                         break;
                     case "g":
-                        mainService.addShowToWatchList(in);
+                        mainService.deleteShow(in);
                         break;
                     case "h":
-                        mainService.showFilms();
+                        mainService.addShowToWatchList(in);
                         break;
                     case "i":
-                        mainService.showSeries();
+                        mainService.addReviewToShow(in);
+                        break;
+                    case "j":
+                        mainService.addActorToShow(in);
+                        break;
+                    case "k":
+                        mainService.addCategoryToShow(in);
                         break;
                     case "q":
                         quit = true;

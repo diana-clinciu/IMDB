@@ -1,13 +1,13 @@
 import java.util.Scanner;
 
-abstract public class Person {
-    protected int id;
+abstract public class Person extends Entity {
     protected String lastName;
     protected String firstName;
     protected String email;
     protected String password;
+
     public Person(int id, String lastName, String firstName, String email, String password) {
-        this.id = id;
+        super(id);
         this.lastName = lastName;
         this.firstName = firstName;
         this.email = email;
@@ -16,9 +16,9 @@ abstract public class Person {
 
     public Person() {
     }
-    public void read(Scanner scanner){
-        System.out.println("Id: ");
-        this.id = Integer.parseInt(scanner.nextLine());
+
+    public void read(Scanner scanner) {
+        super.read(scanner);
         System.out.println("Last name: ");
         this.lastName = scanner.nextLine();
         System.out.println("First name: ");
@@ -32,7 +32,7 @@ abstract public class Person {
     @Override
     public String toString() {
         return "Person{" +
-                "id=" + id +
+                super.toString()+
                 ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", email='" + email + '\'' +

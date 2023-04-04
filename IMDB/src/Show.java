@@ -1,16 +1,19 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-abstract public class Show {
-    protected int id;
+abstract public class Show extends Entity {
     protected String name;
     protected int releaseYear;
     protected String description;
     protected List<Category> categories;
-    protected List<Review> reviews;
+    protected List<Review> reviews; // !!compunere!!
     protected List<Actor> actors;
 
     public Show() {
+        this.categories = new ArrayList<>();
+        this.reviews = new ArrayList<>();
+        this.actors = new ArrayList<>();
     }
 
     public Show(String name) {
@@ -23,14 +26,17 @@ abstract public class Show {
         this.description = description;
     }
 
-    public Show(int id, String name, int releaseYear, String description, List<Category> categories, List<Review> reviews,
-                List<Actor> actors) {
-        this.id = id;
+    public Show(int id, String name, int releaseYear, String description, List<Category> categories,
+                List<Review> reviews, List<Actor> actors) {
+        super(id);
         this.name = name;
         this.releaseYear = releaseYear;
         this.description = description;
         this.categories = categories;
-        this.reviews = reviews;
+        // composition
+        for (Review r : reviews) {
+            this.reviews.add(new Review(r));    // cream interne copii ale review-urilor
+        }
         this.actors = actors;
     }
 
@@ -38,22 +44,43 @@ abstract public class Show {
         return name;
     }
 
-    public void read(Scanner in)  {
-        System.out.println("Id ");
-        this.id = Integer.parseInt(in.nextLine());
+    public void read(Scanner in) {
+        super.read(in);
         System.out.println("Name: ");
         this.name = in.nextLine();
         System.out.println("Release year: ");
-        String rYear=in.nextLine();
-        this.releaseYear= Integer.parseInt(rYear);
+        String rYear = in.nextLine();
+        this.releaseYear = Integer.parseInt(rYear);
         System.out.println("Description: ");
         this.description = in.nextLine();
+    }
+
+    public void print(){
+        System.out.println("Id " + this.id);
+        System.out.println("Name: " + this.name);
+        System.out.println("Release year: " + this.releaseYear);
+        System.out.println("Description: " + this.description);
+        System.out.println("Categories: ");
+        for(Category c: this.categories){
+            c.print();
+            System.out.println("- - - - - - - - - - - - - - - ");
+        }
+        System.out.println("Reviews: ");
+        for(Review r: this.reviews){
+            r.print();
+            System.out.println("- - - - - - - - - - - - - - - ");
+        }
+        System.out.println("Actors: ");
+        for(Actor a: this.actors){
+            a.print();
+            System.out.println("- - - - - - - - - - - - - - - ");
+        }
     }
 
     @Override
     public String toString() {
         return "Show{" +
-                "id=" + id +
+                super.toString()+
                 ", name='" + name + '\'' +
                 ", releaseYear=" + releaseYear +
                 ", description='" + description + '\'' +
@@ -62,4 +89,16 @@ abstract public class Show {
                 ", actors=" + actors +
                 '}';
     }
+
+    public void addCategory(Category category) {
+        this.categories.add(category); // Aggregation
+    }
+    public void addReview(Review review) {
+        this.reviews.add(new Review(review));
+    }
+
+    public void addActor(Actor actor){
+        this.actors.add(actor); // agregare
+    }
+
 }
