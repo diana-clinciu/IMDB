@@ -1,3 +1,5 @@
+package models;
+
 import java.util.Scanner;
 
 public class Admin extends Person {
@@ -10,6 +12,13 @@ public class Admin extends Person {
         this.salary = Integer.parseInt(scanner.nextLine());
     }
 
+    public Admin(int id, String lastName, String firstName, String email, String password) {
+        super(id, lastName, firstName, email, password);
+    }
+
+    public Admin() {
+    }
+
     @Override
     public String toString() {
         return "Admin{" +
@@ -17,4 +26,9 @@ public class Admin extends Person {
                 "salary=" + salary +
                 '}';
     }
+
+    public int getSalary() {
+        return salary;
+    }
+
 }

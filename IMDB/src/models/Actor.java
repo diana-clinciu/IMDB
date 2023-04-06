@@ -1,8 +1,10 @@
+package models;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Actor extends Entity{
+public class Actor extends Entity {
     private String lastName;
     private String firstName;
     private int age;
@@ -12,6 +14,7 @@ public class Actor extends Entity{
         this.awards = new ArrayList<>();
     }
 
+    @Override
     public void read(Scanner scanner) {
         super.read(scanner);
         System.out.println("Last name: ");
@@ -23,7 +26,7 @@ public class Actor extends Entity{
         System.out.println("Number of awards: ");
         int n = Integer.parseInt(scanner.nextLine());
         System.out.println("Awards: ");
-        for(int i=1;i<=n;i++){
+        for (int i = 1; i <= n; i++) {
             String award = scanner.nextLine();
             this.awards.add(award);
         }
@@ -32,7 +35,7 @@ public class Actor extends Entity{
     @Override
     public String toString() {
         return "Actor{" +
-                super.toString()+
+                super.toString() +
                 "lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", age=" + age +
@@ -44,13 +47,25 @@ public class Actor extends Entity{
         return awards;
     }
 
-    public void print(){
-        System.out.println("~Actor id: "+this.id);
-        System.out.println("Name: "+this.lastName+' '+this.firstName);
-        System.out.println("Age: "+this.age);
+    public void print() {
+        System.out.println("Actor id: " + this.id);
+        System.out.println("Name: " + this.lastName + ' ' + this.firstName);
+        System.out.println("Age: " + this.age);
         System.out.println("Awards: ");
-        for(String a:this.awards){
+        for (String a : this.awards) {
             System.out.println(a);
         }
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public int getAge() {
+        return age;
     }
 }

@@ -1,8 +1,10 @@
+package models;
+
 import java.util.*;
 
 public class User extends Person {
-    private Set<Show> watchList;
-    private List<Review> reviews;
+    private Set<Show> watchList;  // agregare (weak association)
+    // private List<Review> reviews;  // compozitie (strong association)
 
     public void addShow(Show show) {
         this.watchList.add(show);
@@ -11,7 +13,7 @@ public class User extends Person {
     public User() {
         super();
         this.watchList = new HashSet<>();
-        this.reviews = new ArrayList<>();
+        //this.reviews = new ArrayList<>();
     }
 
     @Override
@@ -22,10 +24,15 @@ public class User extends Person {
     @Override
     public String toString() {
         return "User{" +
-                super.toString()+
+                super.toString() +
                 "watchList=" + watchList +
-                ", reviews=" + reviews +
+                //  ", reviews=" + reviews +
                 '}';
     }
+
+    public Set<Show> getWatchList() {
+        return watchList;
+    }
+
 }
 

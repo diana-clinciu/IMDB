@@ -1,3 +1,5 @@
+package models;
+
 import java.util.Scanner;
 
 public class Review extends Entity {
@@ -16,6 +18,7 @@ public class Review extends Entity {
 
     }
 
+    @Override
     public void read(Scanner scanner) {
         super.read(scanner);
         System.out.println("User id: ");
@@ -25,21 +28,26 @@ public class Review extends Entity {
         System.out.println("Description: ");
         this.description = scanner.nextLine();
     }
+
     public void print() {
-        System.out.println("~ Review id: "+this.id);
-        System.out.println("User id: "+ this.userId);
-        System.out.println("Grade: "+this.grade);
-        System.out.println("Description: "+this.description);
+        System.out.println("Review id: " + this.id);
+        System.out.println("User id: " + this.userId);
+        System.out.println("Grade: " + this.grade);
+        System.out.println("Description: " + this.description);
     }
 
     public int getGrade() {
         return grade;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
     @Override
     public String toString() {
         return "Review{" +
-                super.toString()+
+                super.toString() +
                 "grade=" + grade +
                 ", description='" + description + '\'' +
                 ", userId=" + userId +

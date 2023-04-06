@@ -1,3 +1,5 @@
+package models;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,9 +8,9 @@ abstract public class Show extends Entity {
     protected String name;
     protected int releaseYear;
     protected String description;
-    protected List<Category> categories;
-    protected List<Review> reviews; // !!compunere!!
-    protected List<Actor> actors;
+    protected List<Category> categories; // agregare (weak association)
+    protected List<Review> reviews; // compozitie (strong association)
+    protected List<Actor> actors; // agregare (weak association)
 
     public Show() {
         this.categories = new ArrayList<>();
@@ -44,6 +46,7 @@ abstract public class Show extends Entity {
         return name;
     }
 
+    @Override
     public void read(Scanner in) {
         super.read(in);
         System.out.println("Name: ");
@@ -55,23 +58,23 @@ abstract public class Show extends Entity {
         this.description = in.nextLine();
     }
 
-    public void print(){
+    public void print() {
         System.out.println("Id " + this.id);
         System.out.println("Name: " + this.name);
         System.out.println("Release year: " + this.releaseYear);
         System.out.println("Description: " + this.description);
         System.out.println("Categories: ");
-        for(Category c: this.categories){
+        for (Category c : this.categories) {
             c.print();
             System.out.println("- - - - - - - - - - - - - - - ");
         }
         System.out.println("Reviews: ");
-        for(Review r: this.reviews){
+        for (Review r : this.reviews) {
             r.print();
             System.out.println("- - - - - - - - - - - - - - - ");
         }
         System.out.println("Actors: ");
-        for(Actor a: this.actors){
+        for (Actor a : this.actors) {
             a.print();
             System.out.println("- - - - - - - - - - - - - - - ");
         }
@@ -80,7 +83,7 @@ abstract public class Show extends Entity {
     @Override
     public String toString() {
         return "Show{" +
-                super.toString()+
+                super.toString() +
                 ", name='" + name + '\'' +
                 ", releaseYear=" + releaseYear +
                 ", description='" + description + '\'' +
@@ -91,20 +94,21 @@ abstract public class Show extends Entity {
     }
 
     public void addCategory(Category category) {
-        this.categories.add(category); // Aggregation
+        this.categories.add(category); // aggregation
     }
+
     public void addReview(Review review) {
         this.reviews.add(new Review(review));
     }
 
-    public void addActor(Actor actor){
+    public void addActor(Actor actor) {
         this.actors.add(actor); // agregare
     }
 
-    public double getAveragaRating(){
+    public double getAveragaRating() {
         double rating = 0;
         int reviewNumber = this.reviews.size();
-        for(Review r: this.reviews){
+        for (Review r : this.reviews) {
             rating = rating + r.getGrade();
         }
         rating = rating / reviewNumber;
@@ -113,5 +117,21 @@ abstract public class Show extends Entity {
 
     public String getName() {
         return name;
+    }
+
+    public int getReleaseYear() {
+        return releaseYear;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public List<Actor> getActors() {
+        return actors;
     }
 }

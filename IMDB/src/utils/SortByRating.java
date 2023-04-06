@@ -1,3 +1,7 @@
+package utils;
+
+import models.Show;
+
 import java.util.Comparator;
 
 public class SortByRating implements Comparator<Show> {

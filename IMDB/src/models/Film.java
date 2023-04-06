@@ -1,3 +1,4 @@
+package models;
 
 import java.util.Scanner;
 
@@ -15,16 +16,21 @@ public class Film extends Show {
         this.duration = Integer.parseInt(dur);
     }
 
-
-    public void print(){
+    @Override
+    public void print() {
         super.print();
         System.out.println("Duration:" + this.duration);
     }
+
     @Override
     public String toString() {
         return "Film{" +
                 super.toString() +
                 "duration=" + duration +
                 '}';
+    }
+
+    public int getDuration() {
+        return duration;
     }
 }

@@ -1,4 +1,7 @@
+package models;
+
 import java.util.Scanner;
+
 public class Series extends Show {
     private int episodesNr;
     private int episodeDuration; //in minutes
@@ -6,11 +9,13 @@ public class Series extends Show {
     public Series() {
     }
 
-    public void print(){
+    @Override
+    public void print() {
         super.print();
         System.out.println("Number of episodes: " + this.episodesNr);
         System.out.println("Episode duration: " + this.episodeDuration);
     }
+
     @Override
     public void read(Scanner in) {
         super.read(in);
@@ -29,5 +34,13 @@ public class Series extends Show {
                 "episodesNr=" + episodesNr +
                 ", episodeDuration=" + episodeDuration +
                 '}';
+    }
+
+    public int getEpisodesNr() {
+        return episodesNr;
+    }
+
+    public int getEpisodeDuration() {
+        return episodeDuration;
     }
 }

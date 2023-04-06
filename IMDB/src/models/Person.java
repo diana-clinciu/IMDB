@@ -1,3 +1,5 @@
+package models;
+
 import java.util.Scanner;
 
 abstract public class Person extends Entity {
@@ -17,6 +19,7 @@ abstract public class Person extends Entity {
     public Person() {
     }
 
+    @Override
     public void read(Scanner scanner) {
         super.read(scanner);
         System.out.println("Last name: ");
@@ -32,11 +35,27 @@ abstract public class Person extends Entity {
     @Override
     public String toString() {
         return "Person{" +
-                super.toString()+
+                super.toString() +
                 ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
