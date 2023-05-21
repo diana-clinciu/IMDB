@@ -14,6 +14,10 @@ abstract public class Entity {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Entity(int id) {
         this.id = id;
     }

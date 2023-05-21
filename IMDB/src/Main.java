@@ -1,11 +1,10 @@
-import models.Admin;
-import models.Person;
-import models.User;
 import services.MainService;
+
 
 import java.util.Scanner;
 
 public class Main {
+
     private static void printMenuUser() {
         System.out.println("+---------------------------------------------+");
         System.out.println("|                     IMDB                    |");
@@ -26,7 +25,7 @@ public class Main {
         System.out.println("+---------------------------------------------+");
         System.out.println("|   a. Add a new admin                        |");
         System.out.println("|   b. Create an actor                        |");
-        System.out.println("|   c. Create a category                      |");
+        System.out.println("|   c. CRUD for a category                    |");
         System.out.println("|   d. Create a film                          |");
         System.out.println("|   e. Create a series                        |");
         System.out.println("|   f. View shows                             |");
@@ -51,7 +50,6 @@ public class Main {
     }
     public static void main(String[] args) {
 
-        //Object obj = new User();
         MainService mainService = new MainService();
         Scanner in = new Scanner(System.in);
         boolean quit = false;
@@ -110,7 +108,7 @@ public class Main {
                                             mainService.createActor(in);
                                             break;
                                         case "c":
-                                            mainService.createCategory(in);
+                                            mainService.CRUDCategory(in);
                                             break;
                                         case "d":
                                             mainService.createFilm(in);

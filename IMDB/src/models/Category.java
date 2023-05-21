@@ -5,6 +5,9 @@ import java.util.Scanner;
 public class Category extends Entity {
     private String name;
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public void read(Scanner scanner) {

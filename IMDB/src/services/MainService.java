@@ -27,8 +27,8 @@ public class MainService {
         System.out.println("User added");
     }
     public void addFirstAdmin() {
-        Admin admin = new Admin(1,"Admin","Nr1","admin1@gmail.com","admin1");
-        this.admins.add(admin);
+        Admin a = new Admin(1,"Admin","Nr1","admin1@gmail.com","admin1");
+        this.admins.add(a);
     }
     public void createAdmin(Scanner in) {
 
@@ -63,11 +63,65 @@ public class MainService {
         }
     }
 
-    public void createCategory(Scanner in) {
-        Category category = new Category();
-        category.read(in);
-        this.categories.add(category);
-        System.out.println("Category added");
+    public void CRUDCategory(Scanner in) {
+        CategoryService categoryService = CategoryService.getInstance();
+        System.out.println("Enter what operation you want to complete:");
+        System.out.println("+---------------------------------------------+");
+        System.out.println("|   a. Show all categories                    |");
+        System.out.println("|   b. Create a category                      |");
+        System.out.println("|   c. Update a category                      |");
+        System.out.println("|   d. Delete a category                      |");
+        System.out.println("+---------------------------------------------+");
+        String option = in.nextLine();
+        try{
+            switch (option){
+                case "a":
+                    this.categories = categoryService.getAllCategories();
+                    for (Category c : categories) {
+                        c.print();
+                        System.out.println("+---------------------------------------------+");
+                    }
+                    System.out.println("\n");
+                    break;
+                case "b":
+                    Category category = new Category();
+                    category.read(in);
+                    this.categories.add(category);
+                    boolean created = categoryService.createCategory(category);
+                    if (created) {
+                        System.out.println("Category added successfully");
+                    } else {
+                        System.out.println("Failed to add category");
+                    }
+                    break;
+                case "c":
+                    System.out.println("Enter the ID of the category you want to update: ");
+                    int categoryId = Integer.parseInt(in.nextLine());
+                    Category categoryToUpdate = findById(categoryId, categoryService.getAllCategories());
+                    System.out.println("Enter the new name for the category: ");
+                    String newName = in.nextLine();
+                    categoryToUpdate.setName(newName);
+                    boolean updated = categoryService.updateCategory(categoryToUpdate);
+                    if (updated) {
+                        System.out.println("Category updated successfully");
+                    } else {
+                        System.out.println("Failed to update category");
+                    }
+                    break;
+                case "d":
+                    System.out.println("Enter the ID of the category you want to delete: ");
+                    categoryId = Integer.parseInt(in.nextLine());
+                    boolean deleted = categoryService.deleteCategory(categoryId);
+                    if (deleted) {
+                        System.out.println("Category deleted successfully");
+                    } else {
+                        System.out.println("Failed to delete category");
+                    }
+            }
+        }catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
     }
 
     public void deleteShow(Scanner in) {
