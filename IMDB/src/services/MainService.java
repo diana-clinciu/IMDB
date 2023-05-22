@@ -16,6 +16,9 @@ public class MainService {
     private List<Show> shows = new ArrayList<>();
     private List<Category> categories = new ArrayList<>();
 
+    ActorService actorService = ActorService.getInstance();
+    CategoryService categoryService = CategoryService.getInstance();
+
     public MainService() {
     }
 
@@ -54,17 +57,97 @@ public class MainService {
     }
 
     public void createActor(Scanner in) {
-        Actor actor = new Actor();
+       /* Actor actor = new Actor();
         actor.read(in);
         this.actors.add(actor);
         System.out.println("Actor added");
-        for (Actor a : actors) {
-            System.out.println(a);
+        */
+        this.actors= actorService.getAllActors();
+        System.out.println("Enter what operation you want to complete:");
+        System.out.println("+---------------------------------------------+");
+        System.out.println("|   a. Show all actors                        |");
+        System.out.println("|   b. Add an actor                           |");
+        System.out.println("|   c. Add an award to an actor               |");
+        System.out.println("|   d. Update an actor                        |");
+        System.out.println("|   e. Delete an actor                        |");
+        System.out.println("+---------------------------------------------+");
+        String option = in.nextLine();
+        try{
+            switch (option){
+                case "a":
+                    for (Actor a : actors) {
+                        a.print();
+                        System.out.println("+---------------------------------------------+");
+                    }
+                    System.out.println("\n");
+                    break;
+                case "b":
+                    Actor actor = new Actor();
+                    actor.read(in);
+                    boolean created = actorService.createActor(actor);
+                    if (created) {
+                        System.out.println("Actor added successfully");
+                    } else {
+                        System.out.println("Failed to add actor");
+                    }
+                    break;
+                case "c":
+                    System.out.println("Enter the ID of the actor you want to add an award to: ");
+                    int actorId = Integer.parseInt(in.nextLine());
+                    System.out.println("Enter the ID of the award: ");
+                    int awardId = Integer.parseInt(in.nextLine());
+                    System.out.println("Enter the name of the award: ");
+                    String name = in.nextLine();
+                    boolean updated = actorService.addAwardToActor(awardId,actorId,name);
+                    if (updated) {
+                        System.out.println("Award added successfully");
+                    } else {
+                        System.out.println("Failed to add award");
+                    }
+                    this.actors = actorService.getAllActors();
+                    break;
+                case "d":
+                    this.actors = actorService.getAllActors();
+                    System.out.println("Enter the ID of the actor you want to update: ");
+                    actorId = Integer.parseInt(in.nextLine());
+                    Actor actorToUpdate = findById(actorId, actors);
+                    System.out.println("Enter the new lastname for the actor: ");
+                    String newName = in.nextLine();
+                    actorToUpdate.setLastName(newName);
+                    System.out.println("Enter the new firstname for the actor: ");
+                    newName = in.nextLine();
+                    actorToUpdate.setFirstName(newName);
+                    System.out.println("Enter the new age for the actor: ");
+                    int age = Integer.parseInt(in.nextLine());
+                    actorToUpdate.setAge(age);
+                    updated = actorService.updateActor(actorToUpdate);
+                    if (updated) {
+                        System.out.println("Actor updated successfully");
+                    } else {
+                        System.out.println("Failed to update actor");
+                    }
+                    break;
+                case "e":
+                    System.out.println("Enter the ID of the actor you want to delete: ");
+                    actorId = Integer.parseInt(in.nextLine());
+                    boolean deleted = actorService.deleteActor(actorId);
+                    if (deleted) {
+                        System.out.println("Actor deleted successfully");
+                    } else {
+                        System.out.println("Failed to delete actor");
+                    }
+                    break;
+                default:
+                    System.out.println("Wrong command!");
+                    break;
+            }
+        }catch (Exception e) {
+            System.out.println(e.toString());
         }
     }
 
     public void CRUDCategory(Scanner in) {
-        CategoryService categoryService = CategoryService.getInstance();
+        this.categories = categoryService.getAllCategories();
         System.out.println("Enter what operation you want to complete:");
         System.out.println("+---------------------------------------------+");
         System.out.println("|   a. Show all categories                    |");
@@ -76,7 +159,6 @@ public class MainService {
         try{
             switch (option){
                 case "a":
-                    this.categories = categoryService.getAllCategories();
                     for (Category c : categories) {
                         c.print();
                         System.out.println("+---------------------------------------------+");
@@ -95,9 +177,10 @@ public class MainService {
                     }
                     break;
                 case "c":
+                    this.categories= categoryService.getAllCategories();
                     System.out.println("Enter the ID of the category you want to update: ");
                     int categoryId = Integer.parseInt(in.nextLine());
-                    Category categoryToUpdate = findById(categoryId, categoryService.getAllCategories());
+                    Category categoryToUpdate = findById(categoryId, categories);
                     System.out.println("Enter the new name for the category: ");
                     String newName = in.nextLine();
                     categoryToUpdate.setName(newName);
@@ -117,6 +200,10 @@ public class MainService {
                     } else {
                         System.out.println("Failed to delete category");
                     }
+                    break;
+                default:
+                    System.out.println("Wrong command!");
+                    break;
             }
         }catch (Exception e) {
             System.out.println(e.toString());
@@ -212,6 +299,7 @@ public class MainService {
     }
 
     public void addCategoryToShow(Scanner scanner) {
+        this.categories = categoryService.getAllCategories();
         try {
             System.out.println("Category id: ");
             int categoryId = Integer.parseInt(scanner.nextLine());
@@ -245,6 +333,7 @@ public class MainService {
     }
 
     public void addActorToShow(Scanner in) {
+        this.actors= actorService.getAllActors();
         System.out.println("Show id: ");
         int showId = Integer.parseInt(in.nextLine());
         System.out.println("Actor id: ");
@@ -261,9 +350,10 @@ public class MainService {
 
     public void mostAwardedActors(Scanner in) {
         System.out.println("Give the number actors for the top: ");
+        this.actors= actorService.getAllActors();
         int topNumber = Integer.parseInt(in.nextLine());
         actors.sort(Comparator.comparingInt(actor -> actor.getAwards().size()));
-        System.out.println("The most awarded" + topNumber + " actors are:");
+        System.out.println("The most awarded " + topNumber + " actors are:");
         if (topNumber > actors.size())
             topNumber = actors.size();
         for (int i = actors.size() - 1; i >= actors.size() - topNumber; i--) {
@@ -273,7 +363,6 @@ public class MainService {
         }
     }
 
-    // am modificat si sper ca si nu stricat :)))
     public void calculateShowRating(Scanner in) {
         System.out.println("Give the show id: ");
         int id = Integer.parseInt(in.nextLine());

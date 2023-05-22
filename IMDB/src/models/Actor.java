@@ -8,9 +8,17 @@ public class Actor extends Entity {
     private String lastName;
     private String firstName;
     private int age;
-    private List<String> awards;
+    private List<String> awards; // one-to-many =>tabela separata in bd "award" cu foreign key idActor
 
     public Actor() {
+        this.awards = new ArrayList<>();
+    }
+
+    public Actor(int id, String lastName, String firstName, int age) {
+        super(id);
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.age = age;
         this.awards = new ArrayList<>();
     }
 
@@ -23,13 +31,19 @@ public class Actor extends Entity {
         this.firstName = scanner.nextLine();
         System.out.println("Age: ");
         this.age = Integer.parseInt(scanner.nextLine());
-        System.out.println("Number of awards: ");
-        int n = Integer.parseInt(scanner.nextLine());
-        System.out.println("Awards: ");
-        for (int i = 1; i <= n; i++) {
-            String award = scanner.nextLine();
-            this.awards.add(award);
-        }
+
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
@@ -45,6 +59,10 @@ public class Actor extends Entity {
 
     public List<String> getAwards() {
         return awards;
+    }
+
+    public void setAwards(List<String> awards) {
+        this.awards = awards;
     }
 
     public void print() {

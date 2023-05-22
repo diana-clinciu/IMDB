@@ -24,7 +24,7 @@ public class Main {
         System.out.println("|                     IMDB                    |");
         System.out.println("+---------------------------------------------+");
         System.out.println("|   a. Add a new admin                        |");
-        System.out.println("|   b. Create an actor                        |");
+        System.out.println("|   b. CRUD for an actor                      |");
         System.out.println("|   c. CRUD for a category                    |");
         System.out.println("|   d. Create a film                          |");
         System.out.println("|   e. Create a series                        |");
