@@ -21,11 +21,11 @@ public class MainService {
     CategoryService categoryService = CategoryService.getInstance();
     ReviewService reviewService = ReviewService.getInstance();
 
+
     public MainService() {
     }
 
     public void createUser(Scanner in) {
-
         User user = new User();
         user.read(in);
         this.users.add(user);
@@ -58,12 +58,7 @@ public class MainService {
         System.out.println("Series added to the website");
     }
 
-    public void createActor(Scanner in) {
-       /* Actor actor = new Actor();
-        actor.read(in);
-        this.actors.add(actor);
-        System.out.println("Actor added");
-        */
+    public int CRUDActor(Scanner in) {
         this.actors= actorService.getAllActors();
         System.out.println("Enter what operation you want to complete:");
         System.out.println("+---------------------------------------------+");
@@ -82,17 +77,18 @@ public class MainService {
                         System.out.println("+---------------------------------------------+");
                     }
                     System.out.println("\n");
-                    break;
+                    return 1;
                 case "b":
                     Actor actor = new Actor();
                     actor.read(in);
                     boolean created = actorService.createActor(actor);
                     if (created) {
                         System.out.println("Actor added successfully");
+                        return 2;
                     } else {
                         System.out.println("Failed to add actor");
                     }
-                    break;
+                    return 0;
                 case "c":
                     System.out.println("Enter the ID of the actor you want to add an award to: ");
                     int actorId = Integer.parseInt(in.nextLine());
@@ -103,11 +99,12 @@ public class MainService {
                     boolean updated = actorService.addAwardToActor(awardId,actorId,name);
                     if (updated) {
                         System.out.println("Award added successfully");
+                        return 3;
                     } else {
                         System.out.println("Failed to add award");
                     }
                     this.actors = actorService.getAllActors();
-                    break;
+                    return 0;
                 case "d":
                     this.actors = actorService.getAllActors();
                     System.out.println("Enter the ID of the actor you want to update: ");
@@ -125,29 +122,32 @@ public class MainService {
                     updated = actorService.updateActor(actorToUpdate);
                     if (updated) {
                         System.out.println("Actor updated successfully");
+                        return 4;
                     } else {
                         System.out.println("Failed to update actor");
                     }
-                    break;
+                    return 0;
                 case "e":
                     System.out.println("Enter the ID of the actor you want to delete: ");
                     actorId = Integer.parseInt(in.nextLine());
                     boolean deleted = actorService.deleteActor(actorId);
                     if (deleted) {
                         System.out.println("Actor deleted successfully");
+                        return 5;
                     } else {
                         System.out.println("Failed to delete actor");
                     }
-                    break;
+                    return 0;
                 default:
                     System.out.println("Wrong command!");
-                    break;
+                    return 0;
             }
         }catch (Exception e) {
             System.out.println(e.toString());
+            return 0;
         }
     }
-    public void CRUDReview(Scanner in) {
+    public int CRUDReview(Scanner in) {
         this.reviews = reviewService.getAllReviews();
         System.out.println("Enter what operation you want to complete:");
         System.out.println("+---------------------------------------------+");
@@ -165,7 +165,7 @@ public class MainService {
                         System.out.println("+---------------------------------------------+");
                     }
                     System.out.println("\n");
-                    break;
+                    return 1;
                 case "b":
                     Review review = new Review();
                     review.read(in);
@@ -173,10 +173,11 @@ public class MainService {
                     boolean created = reviewService.createReview(review);
                     if (created) {
                         System.out.println("Review added successfully");
+                        return 2;
                     } else {
                         System.out.println("Failed to add review");
                     }
-                    break;
+                    return 0;
                 case "c":
                     this.reviews= reviewService.getAllReviews();
                     System.out.println("Enter the ID of the review you want to update: ");
@@ -194,30 +195,33 @@ public class MainService {
                     boolean updated = reviewService.updateReview(reviewToUpdate);
                     if (updated) {
                         System.out.println("Review updated successfully");
+                        return 3;
                     } else {
                         System.out.println("Failed to update review");
                     }
-                    break;
+                    return 0;
                 case "d":
                     System.out.println("Enter the ID of the review you want to delete: ");
                     reviewId = Integer.parseInt(in.nextLine());
                     boolean deleted = reviewService.deleteReview(reviewId);
                     if (deleted) {
                         System.out.println("Review deleted successfully");
+                        return 4;
                     } else {
                         System.out.println("Failed to delete review");
                     }
-                    break;
+                    return 0;
                 default:
                     System.out.println("Wrong command!");
-                    break;
+                    return 0;
             }
         }catch (Exception e) {
             System.out.println(e.toString());
+            return 0;
         }
 
     }
-    public void CRUDCategory(Scanner in) {
+    public int CRUDCategory(Scanner in) {
         this.categories = categoryService.getAllCategories();
         System.out.println("Enter what operation you want to complete:");
         System.out.println("+---------------------------------------------+");
@@ -235,7 +239,7 @@ public class MainService {
                         System.out.println("+---------------------------------------------+");
                     }
                     System.out.println("\n");
-                    break;
+                    return 1;
                 case "b":
                     Category category = new Category();
                     category.read(in);
@@ -243,10 +247,11 @@ public class MainService {
                     boolean created = categoryService.createCategory(category);
                     if (created) {
                         System.out.println("Category added successfully");
+                        return 2;
                     } else {
                         System.out.println("Failed to add category");
                     }
-                    break;
+                    return 0;
                 case "c":
                     this.categories= categoryService.getAllCategories();
                     System.out.println("Enter the ID of the category you want to update: ");
@@ -258,26 +263,29 @@ public class MainService {
                     boolean updated = categoryService.updateCategory(categoryToUpdate);
                     if (updated) {
                         System.out.println("Category updated successfully");
+                        return 3;
                     } else {
                         System.out.println("Failed to update category");
                     }
-                    break;
+                    return 0;
                 case "d":
                     System.out.println("Enter the ID of the category you want to delete: ");
                     categoryId = Integer.parseInt(in.nextLine());
                     boolean deleted = categoryService.deleteCategory(categoryId);
                     if (deleted) {
                         System.out.println("Category deleted successfully");
+                        return 4;
                     } else {
                         System.out.println("Failed to delete category");
                     }
-                    break;
+                    return 0;
                 default:
                     System.out.println("Wrong command!");
-                    break;
+                    return 0;
             }
         }catch (Exception e) {
             System.out.println(e.toString());
+            return 0;
         }
 
     }

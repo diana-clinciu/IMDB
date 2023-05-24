@@ -1,5 +1,5 @@
 import services.MainService;
-
+import services.AuditService;
 
 import java.util.Scanner;
 
@@ -15,7 +15,7 @@ public class Main {
         System.out.println("|   d. Get show rating                        |");
         System.out.println("|   e. Discover most awarded actors           |");
         System.out.println("|   f. Sort shows by rating                   |");
-        System.out.println("|   g. Log out                                |");
+        System.out.println("|   q. Log out                                |");
         System.out.println("+---------------------------------------------+");
         System.out.println("Introduce the command letter:");
     }
@@ -52,44 +52,57 @@ public class Main {
     public static void main(String[] args) {
 
         MainService mainService = new MainService();
+        AuditService auditService = new AuditService();
         Scanner in = new Scanner(System.in);
         boolean quit = false;
-        while (!quit) {
-            Main.printConnect();
-            mainService.addFirstAdmin();
-            String cmd = in.nextLine();
-            try{
-                switch (cmd){
-                    case "a":
-                        mainService.createUser(in);
-                        break;
-                    case "b":
-                        int success = 0;
-                        success = mainService.connect(in);
-                        while(success > 0)
-                         {
-                            switch (success){
-                                case 1:
-                                    Main.printMenuUser();
-                                    cmd = in.nextLine();
-                                    switch (cmd) {
+        try{
+            while (!quit) {
+                Main.printConnect();
+                mainService.addFirstAdmin();
+                String cmd = in.nextLine();
+                try{
+                    switch (cmd){
+                        case "a":
+                            mainService.createUser(in);
+                            auditService.recordActionToCSV("User created");
+                            break;
+                        case "b":
+                            int success = 0;
+                            success = mainService.connect(in);
+                            if(success == 1)
+                                auditService.recordActionToCSV("User log in");
+                            else
+                                auditService.recordActionToCSV("Admin log in");
+                            while(success > 0)
+                            {
+                                switch (success){
+                                    case 1:
+                                        Main.printMenuUser();
+                                        cmd = in.nextLine();
+                                        switch (cmd) {
                                             case "a":
                                                 mainService.printAllShows();
+                                                auditService.recordActionToCSV("Listed all shows");
                                                 break;
                                             case "b":
                                                 mainService.addShowToWatchList(in);
+                                                auditService.recordActionToCSV("User added show to watchlist");
                                                 break;
                                             case "c":
                                                 mainService.addReviewToShow(in);
+                                                auditService.recordActionToCSV("User added review to show");
                                                 break;
                                             case "d":
                                                 mainService.calculateShowRating(in);
+                                                auditService.recordActionToCSV("Show rating inquiry");
                                                 break;
                                             case "e":
                                                 mainService.mostAwardedActors(in);
+                                                auditService.recordActionToCSV("Most awarded actors inquiry");
                                                 break;
                                             case "f":
                                                 mainService.sortShows();
+                                                auditService.recordActionToCSV("Sort shows request");
                                                 break;
                                             case "q":
                                                 success = 0;
@@ -97,62 +110,102 @@ public class Main {
                                             default:
                                                 System.out.println("Wrong command!");
                                         }
-                                     break;
-                                case 2:
-                                    Main.printMenuAdmin();
-                                    cmd = in.nextLine();
-                                    switch (cmd) {
-                                        case "a":
-                                            mainService.createAdmin(in);
-                                            break;
-                                        case "b":
-                                            mainService.createActor(in);
-                                            break;
-                                        case "c":
-                                            mainService.CRUDCategory(in);
-                                            break;
-                                        case "d":
-                                            mainService.CRUDReview(in);
-                                            break;
-                                        case "e":
-                                            mainService.createFilm(in);
-                                            break;
-                                        case "f":
-                                            mainService.createSeries(in);
-                                            break;
-                                        case "g":
-                                            mainService.printAllShows();
-                                            break;
-                                        case "h":
-                                            mainService.deleteShow(in);
-                                            break;
-                                        case "i":
-                                            mainService.addActorToShow(in);
-                                            break;
-                                        case "j":
-                                            mainService.addCategoryToShow(in);
-                                            break;
-                                        case "q":
-                                            success = 0;
-                                            break;
-                                        default:
-                                            System.out.println("Wrong command!");
-                                    }
-                                    break;
+                                        break;
+                                    case 2:
+                                        Main.printMenuAdmin();
+                                        cmd = in.nextLine();
+                                        switch (cmd) {
+                                            case "a":
+                                                mainService.createAdmin(in);
+                                                auditService.recordActionToCSV("Admin added");
+                                                break;
+                                            case "b":
+                                                int option;
+                                                option = mainService.CRUDActor(in);
+                                                if (option == 1)
+                                                    auditService.recordActionToCSV("Listed all actors");
+                                                else if(option == 2)
+                                                    auditService.recordActionToCSV("Actor added");
+                                                else if(option == 3)
+                                                    auditService.recordActionToCSV("Award added to an actor");
+                                                else if (option == 4)
+                                                    auditService.recordActionToCSV("Actor updated");
+                                                else if (option == 5)
+                                                    auditService.recordActionToCSV("Actor deleted");
+                                                break;
+                                            case "c":
+                                                option = mainService.CRUDCategory(in);
+                                                if (option == 1)
+                                                    auditService.recordActionToCSV("Listed all categories");
+                                                else if(option == 2)
+                                                    auditService.recordActionToCSV("Category added");
+                                                else if (option == 3)
+                                                    auditService.recordActionToCSV("Category updated");
+                                                else if (option == 4)
+                                                    auditService.recordActionToCSV("Category deleted");
+                                                break;
+                                            case "d":
+                                                option = mainService.CRUDReview(in);
+                                                if (option == 1)
+                                                    auditService.recordActionToCSV("Listed all reviews");
+                                                else if(option == 2)
+                                                    auditService.recordActionToCSV("Review added");
+                                                else if (option == 3)
+                                                    auditService.recordActionToCSV("Review updated");
+                                                else if (option == 4)
+                                                    auditService.recordActionToCSV("Review deleted");
+                                                break;
+                                            case "e":
+                                                mainService.createFilm(in);
+                                                auditService.recordActionToCSV("Added film");
+                                                break;
+                                            case "f":
+                                                mainService.createSeries(in);
+                                                auditService.recordActionToCSV("Added series");
+                                                break;
+                                            case "g":
+                                                mainService.printAllShows();
+                                                auditService.recordActionToCSV("Listed all shows");
+                                                break;
+                                            case "h":
+                                                mainService.deleteShow(in);
+                                                auditService.recordActionToCSV("Removed show");
+                                                break;
+                                            case "i":
+                                                mainService.addActorToShow(in);
+                                                auditService.recordActionToCSV("Added actor in a show's cast");
+                                                break;
+                                            case "j":
+                                                mainService.addCategoryToShow(in);
+                                                auditService.recordActionToCSV("Added a category to a show");
+                                                break;
+                                            case "q":
+                                                success = 0;
+                                                break;
+                                            default:
+                                                System.out.println("Wrong command!");
+                                        }
+                                        break;
+                                }
                             }
-                         }
-                        break;
-                    case "q":
-                        quit = true;
-                        break;
-                    default:
-                        System.out.println("Wrong command!");
-                        break;
+                            break;
+                        case "q":
+                            quit = true;
+                            break;
+                        default:
+                            System.out.println("Wrong command!");
+                            break;
+                    }
+                }catch (Exception e) {
+                    System.out.println(e.toString());
                 }
-            }catch (Exception e) {
-                System.out.println(e.toString());
             }
+        }catch(Exception e) {
+            System.out.println(e.toString());
+        }finally {
+            auditService.close(); //ma asigur ca fisierul audit e mereu inchis la final de program
         }
+
 
     }
 
