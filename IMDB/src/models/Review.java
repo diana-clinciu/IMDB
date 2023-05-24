@@ -44,6 +44,22 @@ public class Review extends Entity {
         return userId;
     }
 
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return "Review{" +

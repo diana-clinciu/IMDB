@@ -26,12 +26,13 @@ public class Main {
         System.out.println("|   a. Add a new admin                        |");
         System.out.println("|   b. CRUD for an actor                      |");
         System.out.println("|   c. CRUD for a category                    |");
-        System.out.println("|   d. Create a film                          |");
-        System.out.println("|   e. Create a series                        |");
-        System.out.println("|   f. View shows                             |");
-        System.out.println("|   g. Delete a show                          |");
-        System.out.println("|   h. Add actor to show                      |");
-        System.out.println("|   i. Add category to show                   |");
+        System.out.println("|   d. CRUD for a review                      |");
+        System.out.println("|   e. Create a film                          |");
+        System.out.println("|   f. Create a series                        |");
+        System.out.println("|   g. View shows                             |");
+        System.out.println("|   h. Delete a show                          |");
+        System.out.println("|   i. Add actor to show                      |");
+        System.out.println("|   j. Add category to show                   |");
         System.out.println("|   q. Log out                                |");
         System.out.println("+---------------------------------------------+");
         System.out.println("Introduce the command letter:");
@@ -111,21 +112,24 @@ public class Main {
                                             mainService.CRUDCategory(in);
                                             break;
                                         case "d":
-                                            mainService.createFilm(in);
+                                            mainService.CRUDReview(in);
                                             break;
                                         case "e":
-                                            mainService.createSeries(in);
+                                            mainService.createFilm(in);
                                             break;
                                         case "f":
-                                            mainService.printAllShows();
+                                            mainService.createSeries(in);
                                             break;
                                         case "g":
-                                            mainService.deleteShow(in);
+                                            mainService.printAllShows();
                                             break;
                                         case "h":
-                                            mainService.addActorToShow(in);
+                                            mainService.deleteShow(in);
                                             break;
                                         case "i":
+                                            mainService.addActorToShow(in);
+                                            break;
+                                        case "j":
                                             mainService.addCategoryToShow(in);
                                             break;
                                         case "q":

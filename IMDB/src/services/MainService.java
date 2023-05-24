@@ -15,9 +15,11 @@ public class MainService {
     private List<Actor> actors = new ArrayList<>();
     private List<Show> shows = new ArrayList<>();
     private List<Category> categories = new ArrayList<>();
+    private List<Review> reviews = new ArrayList<>();
 
     ActorService actorService = ActorService.getInstance();
     CategoryService categoryService = CategoryService.getInstance();
+    ReviewService reviewService = ReviewService.getInstance();
 
     public MainService() {
     }
@@ -145,7 +147,76 @@ public class MainService {
             System.out.println(e.toString());
         }
     }
+    public void CRUDReview(Scanner in) {
+        this.reviews = reviewService.getAllReviews();
+        System.out.println("Enter what operation you want to complete:");
+        System.out.println("+---------------------------------------------+");
+        System.out.println("|   a. Show all reviews                       |");
+        System.out.println("|   b. Create a review                        |");
+        System.out.println("|   c. Update a review                        |");
+        System.out.println("|   d. Delete a review                        |");
+        System.out.println("+---------------------------------------------+");
+        String option = in.nextLine();
+        try{
+            switch (option){
+                case "a":
+                    for (Review r : reviews) {
+                        r.print();
+                        System.out.println("+---------------------------------------------+");
+                    }
+                    System.out.println("\n");
+                    break;
+                case "b":
+                    Review review = new Review();
+                    review.read(in);
+                    this.reviews.add(review);
+                    boolean created = reviewService.createReview(review);
+                    if (created) {
+                        System.out.println("Review added successfully");
+                    } else {
+                        System.out.println("Failed to add review");
+                    }
+                    break;
+                case "c":
+                    this.reviews= reviewService.getAllReviews();
+                    System.out.println("Enter the ID of the review you want to update: ");
+                    int reviewId = Integer.parseInt(in.nextLine());
+                    Review reviewToUpdate = findById(reviewId, reviews);
+                    System.out.println("Enter the new grade for the review: ");
+                    int newGrade = Integer.parseInt(in.nextLine());
+                    reviewToUpdate.setGrade(newGrade);
+                    System.out.println("Enter the new description for the review: ");
+                    String newDescription = in.nextLine();
+                    reviewToUpdate.setDescription(newDescription);
+                    System.out.println("Enter the new user ID for the review: ");
+                    int newUserId = Integer.parseInt(in.nextLine());
+                    reviewToUpdate.setUserId(newUserId);
+                    boolean updated = reviewService.updateReview(reviewToUpdate);
+                    if (updated) {
+                        System.out.println("Review updated successfully");
+                    } else {
+                        System.out.println("Failed to update review");
+                    }
+                    break;
+                case "d":
+                    System.out.println("Enter the ID of the review you want to delete: ");
+                    reviewId = Integer.parseInt(in.nextLine());
+                    boolean deleted = reviewService.deleteReview(reviewId);
+                    if (deleted) {
+                        System.out.println("Review deleted successfully");
+                    } else {
+                        System.out.println("Failed to delete review");
+                    }
+                    break;
+                default:
+                    System.out.println("Wrong command!");
+                    break;
+            }
+        }catch (Exception e) {
+            System.out.println(e.toString());
+        }
 
+    }
     public void CRUDCategory(Scanner in) {
         this.categories = categoryService.getAllCategories();
         System.out.println("Enter what operation you want to complete:");
