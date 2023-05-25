@@ -20,6 +20,10 @@ public class MainService {
     ActorService actorService = ActorService.getInstance();
     CategoryService categoryService = CategoryService.getInstance();
     ReviewService reviewService = ReviewService.getInstance();
+    ShowService showService = ShowService.getInstance();
+    FilmService filmService = FilmService.getInstance();
+
+    SeriesService seriesService = SeriesService.getInstance();
 
     public MainService() {
     }
@@ -281,7 +285,155 @@ public class MainService {
         }
 
     }
+    public void CRUDFilm(Scanner in) {
+        this.shows = showService.getAllShows();
+        System.out.println("Enter what operation you want to complete:");
+        System.out.println("+---------------------------------------------+");
+        System.out.println("|   a. Show all shows                         |");
+        System.out.println("|   b. Create a film                          |");
+        System.out.println("|   c. Update a film                          |");
+        System.out.println("|   d. Delete a film                          |");
+        System.out.println("+---------------------------------------------+");
+        String option = in.nextLine();
+        try{
+            switch (option){
+                case "a":
+                    for (Show c : shows) {
+                        c.print();
+                        System.out.println("+---------------------------------------------+");
+                    }
+                    System.out.println("\n");
+                    break;
+                case "b":
+                    Film film = new Film();
+                    film.read(in);
+                    this.shows.add(film);
+                    boolean created = filmService.createFilm(film);
+                    if (created) {
+                        System.out.println("Film added successfully");
+                    } else {
+                        System.out.println("Failed to add film");
+                    }
+                    break;
+                case "c":
+                    this.shows= showService.getAllShows();
+                    System.out.println("Enter the ID of the film you want to update: ");
+                    int showId = Integer.parseInt(in.nextLine());
+                    Film showToUpdate = (Film) findById(showId, shows);
+                    System.out.println("Enter the new name for the film: ");
+                    String newName = in.nextLine();
+                    showToUpdate.setName(newName);
+                    System.out.println("Enter the new release year for the film: ");
+                    int newReleaseYear = Integer.parseInt(in.nextLine());
+                    showToUpdate.setReleaseYear(newReleaseYear);
+                    System.out.println("Enter the new description for the film: ");
+                    String newDescription = in.nextLine();
+                    showToUpdate.setDescription(newDescription);
+                    System.out.println("Enter the new duration for the film: ");
+                    int newDuration = Integer.parseInt(in.nextLine());
+                    showToUpdate.setDuration(newDuration);
+                    boolean updated = filmService.updateFilm(showToUpdate);
+                    if (updated) {
+                        System.out.println("Film updated successfully");
+                    } else {
+                        System.out.println("Failed to update film");
+                    }
+                    break;
+                case "d":
+                    System.out.println("Enter the ID of the film you want to delete: ");
+                    showId = Integer.parseInt(in.nextLine());
+                    boolean deleted = showService.deleteShow(showId);
+                    if (deleted) {
+                        System.out.println("Film deleted successfully");
+                    } else {
+                        System.out.println("Failed to delete film");
+                    }
+                    break;
+                default:
+                    System.out.println("Wrong command!");
+                    break;
+            }
+        }catch (Exception e) {
+            System.out.println(e.toString());
+        }
 
+    }
+
+    public void CRUDSeries(Scanner in) {
+        this.shows = showService.getAllShows();
+        System.out.println("Enter what operation you want to complete:");
+        System.out.println("+---------------------------------------------+");
+        System.out.println("|   a. Show all shows                         |");
+        System.out.println("|   b. Create a series                        |");
+        System.out.println("|   c. Update a series                        |");
+        System.out.println("|   d. Delete a series                        |");
+        System.out.println("+---------------------------------------------+");
+        String option = in.nextLine();
+        try{
+            switch (option){
+                case "a":
+                    for (Show c : shows) {
+                        c.print();
+                        System.out.println("+---------------------------------------------+");
+                    }
+                    System.out.println("\n");
+                    break;
+                case "b":
+                    Series series = new Series();
+                    series.read(in);
+                    this.shows.add(series);
+                    boolean created = seriesService.createSeries(series);
+                    if (created) {
+                        System.out.println("Series added successfully");
+                    } else {
+                        System.out.println("Failed to add series");
+                    }
+                    break;
+                case "c":
+                    this.shows= showService.getAllShows();
+                    System.out.println("Enter the ID of the series you want to update: ");
+                    int showId = Integer.parseInt(in.nextLine());
+                    Series showToUpdate = (Series) findById(showId, shows);
+                    System.out.println("Enter the new name for the series: ");
+                    String newName = in.nextLine();
+                    showToUpdate.setName(newName);
+                    System.out.println("Enter the new release year for the series: ");
+                    int newReleaseYear = Integer.parseInt(in.nextLine());
+                    showToUpdate.setReleaseYear(newReleaseYear);
+                    System.out.println("Enter the new description for the series: ");
+                    String newDescription = in.nextLine();
+                    showToUpdate.setDescription(newDescription);
+                    System.out.println("Enter the new number of episodes for the series: ");
+                    int episodesNr = Integer.parseInt(in.nextLine());
+                    showToUpdate.setEpisodesNr(episodesNr);
+                    System.out.println("Enter the new duration of an episode for the series: ");
+                    int newEpisodeDuration = Integer.parseInt(in.nextLine());
+                    showToUpdate.setEpisodeDuration(newEpisodeDuration);
+                    boolean updated = seriesService.updateSeries(showToUpdate);
+                    if (updated) {
+                        System.out.println("Series updated successfully");
+                    } else {
+                        System.out.println("Failed to update series");
+                    }
+                    break;
+                case "d":
+                    System.out.println("Enter the ID of the series you want to delete: ");
+                    showId = Integer.parseInt(in.nextLine());
+                    boolean deleted = showService.deleteShow(showId);
+                    if (deleted) {
+                        System.out.println("Series deleted successfully");
+                    } else {
+                        System.out.println("Failed to delete series");
+                    }
+                    break;
+                default:
+                    System.out.println("Wrong command!");
+                    break;
+            }
+        }catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
     public void deleteShow(Scanner in) {
         System.out.println("Enter the name of the show you want to delete:");
         String nameToDelete = in.nextLine();
@@ -371,6 +523,7 @@ public class MainService {
 
     public void addCategoryToShow(Scanner scanner) {
         this.categories = categoryService.getAllCategories();
+        this.shows = showService.getAllShows();
         try {
             System.out.println("Category id: ");
             int categoryId = Integer.parseInt(scanner.nextLine());
@@ -378,7 +531,9 @@ public class MainService {
             int showId = Integer.parseInt(scanner.nextLine());
             Category category = this.findById(categoryId, categories);
             Show show = this.findById(showId, shows);
+            showService.addCategory(show, category);
             show.addCategory(category);
+
             System.out.println("Category added successfully");
             for (Show s : shows) {
                 System.out.println(s);
@@ -391,6 +546,7 @@ public class MainService {
     public void addReviewToShow(Scanner in) {
         System.out.println("Show id: ");
         int id = Integer.parseInt(in.nextLine());
+        shows = showService.getAllShows();
         try {
             Show show = this.findById(id, shows);
             Review review = new Review();
@@ -404,7 +560,8 @@ public class MainService {
     }
 
     public void addActorToShow(Scanner in) {
-        this.actors= actorService.getAllActors();
+        this.actors = actorService.getAllActors();
+        this.shows = showService.getAllShows();
         System.out.println("Show id: ");
         int showId = Integer.parseInt(in.nextLine());
         System.out.println("Actor id: ");
@@ -413,6 +570,7 @@ public class MainService {
             Show show = this.findById(showId, shows);
             Actor actor = this.findById(actorId, actors);
             show.addActor(actor);
+            showService.addActor(show,actor);
             System.out.println(show);
         } catch (Exception e) {
             System.out.println(e.getMessage());

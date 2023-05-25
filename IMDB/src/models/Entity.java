@@ -1,5 +1,6 @@
 package models;
 
+import java.util.List;
 import java.util.Scanner;
 
 abstract public class Entity {
@@ -28,11 +29,18 @@ abstract public class Entity {
 
     public Entity() {
     }
-
     @Override
     public String toString() {
         return "Entity{" +
                 "id=" + id +
                 '}';
+    }
+
+    static public <T extends Entity> T findById(int id, List<T> array) throws Exception {
+        for (T e : array) {
+            if (e.getId() == id)
+                return e;
+        }
+        throw new Exception("Entity not found!");
     }
 }

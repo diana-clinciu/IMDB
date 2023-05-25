@@ -8,14 +8,11 @@ abstract public class Show extends Entity {
     protected String name;
     protected int releaseYear;
     protected String description;
-    protected List<Category> categories; // agregare (weak association)
-    protected List<Review> reviews; // compozitie (strong association)
-    protected List<Actor> actors; // agregare (weak association)
+    protected List<Category> categories = new ArrayList<>(); // agregare (weak association)
+    protected List<Review> reviews = new ArrayList<>(); // compozitie (strong association)
+    protected List<Actor> actors = new ArrayList<>(); // agregare (weak association)
 
     public Show() {
-        this.categories = new ArrayList<>();
-        this.reviews = new ArrayList<>();
-        this.actors = new ArrayList<>();
     }
 
     public Show(String name) {
@@ -27,7 +24,12 @@ abstract public class Show extends Entity {
         this.releaseYear = releaseYear;
         this.description = description;
     }
-
+    public Show(int id, String name, int releaseYear, String description) {
+        super(id);
+        this.name = name;
+        this.releaseYear = releaseYear;
+        this.description = description;
+    }
     public Show(int id, String name, int releaseYear, String description, List<Category> categories,
                 List<Review> reviews, List<Actor> actors) {
         super(id);
@@ -133,5 +135,25 @@ abstract public class Show extends Entity {
 
     public List<Actor> getActors() {
         return actors;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
     }
 }

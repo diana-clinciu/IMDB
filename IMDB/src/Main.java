@@ -27,12 +27,10 @@ public class Main {
         System.out.println("|   b. CRUD for an actor                      |");
         System.out.println("|   c. CRUD for a category                    |");
         System.out.println("|   d. CRUD for a review                      |");
-        System.out.println("|   e. Create a film                          |");
-        System.out.println("|   f. Create a series                        |");
-        System.out.println("|   g. View shows                             |");
-        System.out.println("|   h. Delete a show                          |");
-        System.out.println("|   i. Add actor to show                      |");
-        System.out.println("|   j. Add category to show                   |");
+        System.out.println("|   e. CRUD for a film                        |");
+        System.out.println("|   f. CRUD for series                        |");
+        System.out.println("|   g. Add actor to show                      |");
+        System.out.println("|   h. Add category to show                   |");
         System.out.println("|   q. Log out                                |");
         System.out.println("+---------------------------------------------+");
         System.out.println("Introduce the command letter:");
@@ -115,21 +113,15 @@ public class Main {
                                             mainService.CRUDReview(in);
                                             break;
                                         case "e":
-                                            mainService.createFilm(in);
+                                            mainService.CRUDFilm(in);
                                             break;
                                         case "f":
-                                            mainService.createSeries(in);
+                                            mainService.CRUDSeries(in);
                                             break;
                                         case "g":
-                                            mainService.printAllShows();
-                                            break;
-                                        case "h":
-                                            mainService.deleteShow(in);
-                                            break;
-                                        case "i":
                                             mainService.addActorToShow(in);
                                             break;
-                                        case "j":
+                                        case "h":
                                             mainService.addCategoryToShow(in);
                                             break;
                                         case "q":
