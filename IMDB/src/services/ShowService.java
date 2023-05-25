@@ -122,7 +122,7 @@ public class ShowService {
 
     public boolean createShow(Show show) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO `show` (idShow, name, releaseYear, description) VALUES (?, ?,?,?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO `show` (idShow, name, releaseYear, description) VALUES (?,?,?,?)");
             statement.setInt(1, show.getId());
             statement.setString(2, show.getName());
             statement.setInt(3, show.getReleaseYear());

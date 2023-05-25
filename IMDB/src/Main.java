@@ -27,12 +27,10 @@ public class Main {
         System.out.println("|   b. CRUD for an actor                      |");
         System.out.println("|   c. CRUD for a category                    |");
         System.out.println("|   d. CRUD for a review                      |");
-        System.out.println("|   e. Create a film                          |");
-        System.out.println("|   f. Create a series                        |");
-        System.out.println("|   g. View shows                             |");
-        System.out.println("|   h. Delete a show                          |");
-        System.out.println("|   i. Add actor to show                      |");
-        System.out.println("|   j. Add category to show                   |");
+        System.out.println("|   e. CRUD for a film                        |");
+        System.out.println("|   f. CRUD for a series                      |");
+        System.out.println("|   g. Add actor to show                      |");
+        System.out.println("|   h. Add category to show                   |");
         System.out.println("|   q. Log out                                |");
         System.out.println("+---------------------------------------------+");
         System.out.println("Introduce the command letter:");
@@ -156,26 +154,18 @@ public class Main {
                                                     auditService.recordActionToCSV("Review deleted");
                                                 break;
                                             case "e":
-                                                mainService.createFilm(in);
-                                                auditService.recordActionToCSV("Added film");
+                                                mainService.CRUDFilm(in);
+                                                auditService.recordActionToCSV("CRUD film");
                                                 break;
                                             case "f":
-                                                mainService.createSeries(in);
-                                                auditService.recordActionToCSV("Added series");
+                                                mainService.CRUDSeries(in);
+                                                auditService.recordActionToCSV("CRUD series");
                                                 break;
                                             case "g":
-                                                mainService.printAllShows();
-                                                auditService.recordActionToCSV("Listed all shows");
-                                                break;
-                                            case "h":
-                                                mainService.deleteShow(in);
-                                                auditService.recordActionToCSV("Removed show");
-                                                break;
-                                            case "i":
                                                 mainService.addActorToShow(in);
                                                 auditService.recordActionToCSV("Added actor in a show's cast");
                                                 break;
-                                            case "j":
+                                            case "h":
                                                 mainService.addCategoryToShow(in);
                                                 auditService.recordActionToCSV("Added a category to a show");
                                                 break;

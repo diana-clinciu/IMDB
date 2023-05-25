@@ -47,21 +47,6 @@ public class MainService {
         System.out.println("Admin added");
     }
 
-    public void createFilm(Scanner in) {
-        Film newFilm = new Film();
-        newFilm.read(in);
-        this.shows.add(newFilm);
-        System.out.println("Film added to the website");
-    }
-
-    public void createSeries(Scanner in) {
-
-        Series newSeries = new Series();
-        newSeries.read(in);
-        this.shows.add(newSeries);
-        System.out.println("Series added to the website");
-    }
-
     public int CRUDActor(Scanner in) {
         this.actors= actorService.getAllActors();
         System.out.println("Enter what operation you want to complete:");
@@ -442,23 +427,7 @@ public class MainService {
             System.out.println(e.toString());
         }
     }
-    public void deleteShow(Scanner in) {
-        System.out.println("Enter the name of the show you want to delete:");
-        String nameToDelete = in.nextLine();
-        boolean found = false;
-        for (Iterator<Show> iterator = shows.iterator(); iterator.hasNext(); ) {
-            Show show = iterator.next();
-            if (show.getShowName().equals(nameToDelete)) {
-                iterator.remove();
-                found = true;
-            }
-        }
-        if (found) {
-            System.out.println("The show was successfully deleted.");
-        } else {
-            System.out.println("The show was not found in the list.");
-        }
-    }
+
     public int connect(Scanner in){
         int success = 0;
         System.out.println("| Log in options:                             |");
