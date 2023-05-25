@@ -27,13 +27,13 @@ public class ShowService {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(
-                    "SELECT s.idShow, s.name as showName, s.releaseYear, s.description, c.idCategory, c.name as categoryName " +
-//                            "a.* "+
+                    "SELECT s.idShow, s.name as showName, s.releaseYear, s.description, c.idCategory, c.name as categoryName, " +
+                           "a.* "+
                             "FROM `show` s " +
                             "LEFT JOIN category_show cs ON cs.idShow = s.idShow " +
-                            "LEFT JOIN category c on cs.idCategory = c.idCategory "
-//                            "LEFT JOIN actor_show sa on sa.idShow = s.idShow " +
-//                            "LEFT JOIN actor a on sa.idActor = a.idActor "
+                            "LEFT JOIN category c on cs.idCategory = c.idCategory " +
+                            "LEFT JOIN actor_show sa on sa.idShow = s.idShow " +
+                            "LEFT JOIN actor a on sa.idActor = a.idActor "
                     );
             while (resultSet.next()) {
                 int idShow = resultSet.getInt("idShow");
@@ -76,17 +76,17 @@ public class ShowService {
                     show.setCategories(categories);
                 }
 
-//                String firstName = resultSet.getString("firstName");
-//                String lastName = resultSet.getString("lastName");
-//                int idActor = resultSet.getInt("idActor");
-//                int age = resultSet.getInt("age");
-//                List<Actor> actors = new ArrayList<>();
-//                actors = show.getActors();
-//                if (idActor != 0) {
-//                    Actor actor = new Actor(idActor, firstName, lastName, age);
-//                    actors.add(actor);
-//                    show.setActors(actors);
-//                }
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                int idActor = resultSet.getInt("idActor");
+                int age = resultSet.getInt("age");
+                List<Actor> actors = new ArrayList<>();
+                actors = show.getActors();
+                if (idActor != 0) {
+                    Actor actor = new Actor(idActor, firstName, lastName, age);
+                    actors.add(actor);
+                    show.setActors(actors);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

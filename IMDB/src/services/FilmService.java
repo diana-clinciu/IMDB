@@ -22,10 +22,9 @@ public class FilmService {
         try {
             boolean showCreated = showService.createShow(film);
             if(showCreated){
-                PreparedStatement statement = connection.prepareStatement("INSERT INTO film (idFilm, duration,idShow) VALUES (?, ?, ?)");
-                statement.setInt(1, film.getId());
-                statement.setInt(2, film.getDuration());
-                statement.setInt(3, film.getId());
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO film (duration,idShow) VALUES (?, ?)");
+                statement.setInt(1, film.getDuration());
+                statement.setInt(2, film.getId());
                 int rowsInserted = statement.executeUpdate();
                 return rowsInserted > 0;
             }

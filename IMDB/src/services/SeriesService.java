@@ -24,11 +24,10 @@ public class SeriesService {
         try {
             boolean showCreated = showService.createShow(series);
             if(showCreated){
-                PreparedStatement statement = connection.prepareStatement("INSERT INTO series (idSeries, episodesNR, episodeDuration, idShow) VALUES (?, ?, ?, ?)");
-                statement.setInt(1, series.getId());
-                statement.setInt(2, series.getEpisodesNr());
-                statement.setInt(3, series.getEpisodeDuration());
-                statement.setInt(4, series.getId());
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO series (episodesNR, episodeDuration, idShow) VALUES (?, ?, ?)");
+                statement.setInt(1, series.getEpisodesNr());
+                statement.setInt(2, series.getEpisodeDuration());
+                statement.setInt(3, series.getId());
                 int rowsInserted = statement.executeUpdate();
                 return rowsInserted > 0;
             }
