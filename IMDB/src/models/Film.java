@@ -8,6 +8,10 @@ public class Film extends Show {
     public Film() {
     }
 
+    public Film(int id, String name, int releaseYear, String description, int duration){
+        super(id, name,releaseYear,description);
+        this.duration=duration;
+    }
     @Override
     public void read(Scanner in) {
         super.read(in);
@@ -32,5 +36,9 @@ public class Film extends Show {
 
     public int getDuration() {
         return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

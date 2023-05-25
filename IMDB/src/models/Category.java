@@ -19,6 +19,10 @@ public class Category extends Entity {
     public Category() {
 
     }
+    public Category(int id, String name){
+        super(id);
+        this.name=name;
+    }
 
     public void print() {
         System.out.println("Category id: " + this.id);
@@ -36,4 +40,5 @@ public class Category extends Entity {
     public String getName() {
         return name;
     }
+
 }

@@ -9,6 +9,11 @@ public class Series extends Show {
     public Series() {
     }
 
+    public Series(int id, String name, int releaseYear, String description, int episodesNr, int episodeDuration){
+        super(id, name,releaseYear,description);
+        this.episodesNr=episodesNr;
+        this.episodeDuration=episodeDuration;
+    }
     @Override
     public void print() {
         super.print();
@@ -42,5 +47,13 @@ public class Series extends Show {
 
     public int getEpisodeDuration() {
         return episodeDuration;
+    }
+
+    public void setEpisodesNr(int episodesNr) {
+        this.episodesNr = episodesNr;
+    }
+
+    public void setEpisodeDuration(int episodeDuration) {
+        this.episodeDuration = episodeDuration;
     }
 }
